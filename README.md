@@ -1,78 +1,113 @@
 <p align="left">
-📜 Arabic History Chatbot with FAISS<br><br>
 
-🚀 **Description**<br>
-A smart chatbot for Arabic history using **Google Gemini AI** and **FAISS for efficient retrieval**.<br><br>
+<h1>📜 Arabic History Chatbot with FAISS + Gemini AI</h1>
 
-✅ **Features**<br>
-✅ Embeds historical content using Google Gemini<br>
-✅ FAISS-based similarity search for quick lookups<br>
-✅ Flask API for easy integration<br>
-✅ Supports Arabic Q&A<br>
-✅ Evaluates search accuracy using Precision@5, Recall@5, and MRR<br><br>
+<h2>🚀 Description</h2>
+<p>
+A smart chatbot for Arabic history using <strong>Retrieval-Augmented Generation (RAG)</strong> with <strong>FAISS</strong> for efficient semantic search and <strong>Google Gemini AI</strong> for contextual Arabic answer generation.
+</p>
 
-🛠️ **Installation & Setup**<br><br>
+<h2>✅ Features</h2>
+<ul>
+  <li>✅ <strong>Embeds historical Arabic content using SentenceTransformers</strong></li>
+  <li>✅ <strong>FAISS-based semantic search for fast, relevant lookups</strong></li>
+  <li>✅ <strong>Gemini 2.5 API for generating Arabic responses</strong></li>
+  <li>✅ <strong>Flask API with real-time interaction and frontend support</strong></li>
+  <li>✅ <strong>Evaluation metrics: Precision@5, Recall@5, and Mean Reciprocal Rank (MRR)</strong></li>
+</ul>
 
-1️⃣ **Clone the Repository**<br>
-<code>git clone https://github.com/YOUR_USERNAME/arabic-history-chatbot.git</code><br>
-<code>cd arabic-history-chatbot</code><br><br>
+<h2>🛠️ Installation & Setup</h2>
 
-2️⃣ **Install Dependencies**<br>
-<code>pip install -r requirements.txt</code><br><br>
+<ol>
+  <li><strong>Clone the Repository</strong><br>
+    <code>git clone https://github.com/YOUR_USERNAME/arabic-history-chatbot.git</code><br>
+    <code>cd arabic-history-chatbot</code>
+  </li>
+  <br>
+  <li><strong>Create Virtual Environment (optional but recommended)</strong><br>
+    <code>python -m venv .venv</code><br>
+    <code>.venv\Scripts\activate</code> (on Windows)<br>
+    <code>source .venv/bin/activate</code> (on macOS/Linux)
+  </li>
+  <br>
+  <li><strong>Install Dependencies</strong><br>
+    <code>pip install -r requirements.txt</code>
+  </li>
+  <br>
+  <li><strong>Set Up Google Gemini API Key</strong><br>
+    1. Get your Gemini API key from <a href="https://aistudio.google.com/">Google AI Studio</a>.<br>
+    2. Set it as an environment variable:<br>
+    <code>export GEMINI_API_KEY="your-google-gemini-api-key"</code> (Linux/macOS)<br>
+    <code>set GEMINI_API_KEY="your-google-gemini-api-key"</code> (Windows)
+  </li>
+  <br>
+  <li><strong>Run the Chatbot API</strong><br>
+    <code>python app.py</code><br>
+    Access it at: <code>http://127.0.0.1:5000/</code>
+  </li>
+</ol>
 
-3️⃣ **Set Up Google Gemini API Key**<br>
-1. Get a Gemini API key from [Google AI Studio](https://aistudio.google.com/).<br>
-2. Set it as an environment variable:<br>
-<code>export GEMINI_API_KEY="your-google-gemini-api-key"</code><br><br>
+<h2>📡 Usage</h2>
+<p>Send a <strong>POST request</strong> to <code>/ask</code> with a JSON payload:</p>
 
-4️⃣ **Run the Chatbot API**<br>
-<code>python chatbot.py</code><br>
-The API will start at: <code>http://127.0.0.1:5000/</code><br><br>
-
-📡 **Usage**<br>
-Send a **POST request** to <code>/ask</code> with a JSON payload:<br>
-<code>
+<pre>
 {
   "question": "ما هي أسباب سقوط الدولة العباسية؟"
 }
-</code><br><br>
+</pre>
 
-Example using Python:<br>
-<code>
+<p><strong>Example using Python:</strong></p>
+
+<pre><code>
 import requests
 
 url = "http://127.0.0.1:5000/ask"
 response = requests.post(url, json={"question": "ما هي أسباب سقوط الدولة العباسية؟"})
 print(response.json())
-</code><br><br>
+</code></pre>
 
-📊 **Evaluation (FAISS Accuracy)**<br>
-Run the FAISS evaluation script:<br>
-<code>python evaluate_faiss.py</code><br>
-This script computes:<br>
-- **Precision@5** (How many retrieved answers are correct?)<br>
-- **Recall@5** (Did we find all possible correct answers?)<br>
-- **MRR (Mean Reciprocal Rank)** (How early was the correct answer retrieved?)<br><br>
+<p>Or access the <strong>browser chat interface</strong> at:<br>
+<code>http://127.0.0.1:5000/</code></p>
 
-📂 **Project Structure**<br>
+<h2>📊 Evaluation (FAISS Accuracy)</h2>
+<p>Run the evaluation script:</p>
+<code>python Evaluation_Test.py</code><br><br>
+<p>This computes:</p>
+<ul>
+  <li><strong>Precision@5</strong> – How many retrieved answers are correct?</li>
+  <li><strong>Recall@5</strong> – Did we find all possible correct answers?</li>
+  <li><strong>MRR</strong> – Mean Reciprocal Rank of the correct answer</li>
+</ul>
+
+<h2>📂 Project Structure</h2>
 <pre>
-📁 arabic-history-chatbot
-├── chatbot.py             # Main chatbot API
-├── evaluate_faiss.py      # FAISS evaluation script
-├── faiss_index.bin        # Prebuilt FAISS index
-├── lesson_ids.json        # Lesson metadata for FAISS
-├── requirements.txt       # Python dependencies
-├── README.md              # This file
-└── data
-    ├── hist.json          # Arabic history dataset
-    ├── evaluation_dataset.json  # Evaluation questions/answers
-</pre><br>
+arabic-history-chatbot/
+├── app.py                  # Main Flask API serving the chatbot
+├── doc2text.py             # OCR + preprocessing script for Arabic PDFs
+├── Evaluation_Test.py      # Evaluation script for FAISS performance
+├── faiss_index.bin         # Prebuilt FAISS index with embeddings
+├── hist.json               # Cleaned Arabic history dataset
+├── requirements.txt        # Python dependencies
+├── static/                 # Frontend assets (JS, CSS, images)
+│   ├── script.js
+│   ├── style.css
+│   └── ...
+├── templates/
+│   └── index.html          # Chat interface (HTML frontend)
+└── .venv/                  # (optional) Python virtual environment
+</pre>
 
-📌 **Future Improvements**<br>
-🔹 Support for more Arabic dialects<br>
-🔹 Interactive UI with React.js<br>
-🔹 Expansion to other historical subjects<br><br>
+<h2>📌 Future Improvements</h2>
+<ul>
+  <li>🔹 Support for more Arabic dialects and curriculum variations</li>
+  <li>🔹 Upgrade to a React-based UI for richer interaction</li>
+  <li>🔹 Add support for additional subjects like Biology and Geography</li>
+</ul>
 
-📧 **Contact & Contributions**<br>
-Feel free to contribute, open issues, or suggest improvements! 🚀
+<h2>📧 Contact & Contributions</h2>
+<p>
+Feel free to fork this repo, open issues, or suggest improvements!  
+<br>Pull requests are welcome 🚀
+</p>
+
 </p>
