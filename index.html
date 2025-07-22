@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>مساعد التاريخ</title>
+  <!-- ✅ Load styles from Flask static folder -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+
+<body>
+  <!-- ✅ Slideshow Background -->
+  <div id="slideshow-background">
+    {% for i in range(1, 7) %}
+    <div class="slide-wrapper">
+      <img src="{{ url_for('static', filename='images/img' ~ i ~ '.jpg') }}" class="slide-blur" />
+      <img src="{{ url_for('static', filename='images/img' ~ i ~ '.jpg') }}" class="slide" />
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- ✅ Chat UI -->
+  <main id="chat-container">
+    <div id="messages-container">
+      <!-- Messages will be inserted by JavaScript -->
+    </div>
+  </main>
+
+  <form id="input-form" autocomplete="off">
+    <input id="question-input" type="text" placeholder="اكتب سؤالك هنا..." />
+    <button type="submit">إرسال</button>
+  </form>
+
+  <!-- ✅ JavaScript from static folder -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
